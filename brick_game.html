@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Brick Breaker Game - Project Details</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --dark-bg: #2b2d42;
+      --darker-bg: #1a1b2e;
+      --accent: #f5a623;
+      --text-light: #e8e9ed;
+      --text-gray: #9ca3af;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--dark-bg);
+      color: var(--text-light);
+      line-height: 1.8;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    nav {
+      background: var(--darker-bg);
+      padding: 1.5rem 5%;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.5rem;
+      background: transparent;
+      color: var(--accent);
+      text-decoration: none;
+      border: 2px solid var(--accent);
+      border-radius: 5px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background: var(--accent);
+      color: var(--darker-bg);
+      transform: translateX(-5px);
+    }
+
+    .nav-title {
+      font-size: 1.2rem;
+      color: var(--text-light);
+    }
+
+    .project-hero {
+      padding: 5rem 5% 3rem 5%;
+      max-width: 1400px;
+      margin: 0 auto;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-label {
+      color: var(--text-gray);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+    }
+
+    .project-title {
+      font-size: 4rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+    }
+
+    .project-subtitle {
+      font-size: 1.3rem;
+      color: var(--text-gray);
+      max-width: 800px;
+    }
+
+    .tech-tags {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .tech-tag {
+      padding: 0.5rem 1.5rem;
+      background: rgba(245, 166, 35, 0.1);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .content-wrapper {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 3rem 5%;
+    }
+
+    .content-section {
+      margin-bottom: 5rem;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .section-label {
+      color: var(--text-gray);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      color: var(--text-light);
+    }
+
+    .section-text {
+      font-size: 1.1rem;
+      color: var(--text-gray);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title-small {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin: 2rem 0 1rem 0;
+      color: var(--text-light);
+    }
+
+    .content-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .content-list li {
+      padding: 0.8rem 0 0.8rem 2rem;
+      color: var(--text-gray);
+      position: relative;
+      font-size: 1.05rem;
+    }
+
+    .content-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .content-list li strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .feature-card {
+      background: var(--darker-bg);
+      padding: 2rem;
+      border-radius: 10px;
+      border-left: 4px solid var(--accent);
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateX(10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .feature-card h4 {
+      color: var(--accent);
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .feature-card p {
+      color: var(--text-gray);
+      line-height: 1.6;
+    }
+
+    .difficulty-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .difficulty-card {
+      background: var(--darker-bg);
+      border-radius: 10px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      transition: all 0.4s ease;
+      border-top: 4px solid var(--accent);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .difficulty-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(245, 166, 35, 0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .difficulty-card:hover::before {
+      opacity: 1;
+    }
+
+    .difficulty-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .difficulty-card h3 {
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .difficulty-card ul {
+      text-align: left;
+      list-style: none;
+      padding: 0;
+    }
+
+    .difficulty-card li {
+      padding: 0.6rem 0 0.6rem 1.5rem;
+      color: var(--text-gray);
+      position: relative;
+    }
+
+    .difficulty-card li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .highlight-box {
+      background: var(--darker-bg);
+      padding: 2rem;
+      border-radius: 10px;
+      border-left: 4px solid var(--accent);
+      margin: 2rem 0;
+    }
+
+    .highlight-box p {
+      color: var(--text-gray);
+      line-height: 1.8;
+    }
+
+    .highlight-box strong {
+      color: var(--accent);
+    }
+
+    .challenge-card {
+      background: var(--darker-bg);
+      padding: 2rem;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+      border-left: 4px solid var(--accent);
+    }
+
+    .challenge-card h4 {
+      color: var(--text-light);
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .challenge-card p {
+      color: var(--text-gray);
+      line-height: 1.8;
+    }
+
+    .challenge-card strong {
+      color: var(--accent);
+    }
+
+    .image-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 3rem;
+      margin: 3rem 0;
+    }
+
+    .gallery-item {
+      background: var(--darker-bg);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-caption {
+      padding: 1.5rem;
+      text-align: center;
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 1.1rem;
+    }
+
+    .learning-list {
+      background: var(--darker-bg);
+      padding: 2rem;
+      border-radius: 10px;
+      border-left: 4px solid var(--accent);
+    }
+
+    .learning-list li {
+      padding: 1rem 0 1rem 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .learning-list li:last-child {
+      border-bottom: none;
+    }
+
+    footer {
+      background: var(--darker-bg);
+      padding: 3rem 5%;
+      text-align: center;
+      margin-top: 5rem;
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .footer-text {
+      color: var(--text-gray);
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .project-title {
+        font-size: 2.5rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .project-hero {
+        padding: 3rem 5% 2rem 5%;
+      }
+
+      .features-grid,
+      .difficulty-cards,
+      .image-gallery {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i> Back to Portfolio
+      </a>
+      <span class="nav-title">Project Details</span>
+    </div>
+  </nav>
+
+  <section class="project-hero">
+    <p class="hero-label">— Game Development</p>
+    <h1 class="project-title">Brick Breaker<br>Game.</h1>
+    <p class="project-subtitle">A dynamic, level-based game with progressive difficulty and adaptive speed mechanics. Built with pure JavaScript and Canvas featuring three challenging levels.</p>
+    <div class="tech-tags">
+      <span class="tech-tag"><i class="fab fa-js"></i> JavaScript</span>
+      <span class="tech-tag"><i class="fab fa-html5"></i> HTML5 Canvas</span>
+      <span class="tech-tag"><i class="fab fa-css3"></i> CSS3</span>
+      <span class="tech-tag"><i class="fas fa-gamepad"></i> Game Development</span>
+    </div>
+  </section>
+
+  <div class="content-wrapper">
+    <section class="content-section">
+      <p class="section-label">— Overview</p>
+      <h2 class="section-title">Project Description</h2>
+      <p class="section-text">A Brick Breaker game built with pure JavaScript and Canvas, featuring adaptive difficulty. The game includes three levels (Easy, Medium, Hard), where ball and paddle speed scales with performance, and Hard mode introduces score penalties for missed balls.</p>
+      <p class="section-text">This project demonstrates advanced game mechanics, physics simulation, and dynamic difficulty adjustment based on player performance. Built entirely with vanilla JavaScript without external game engines or libraries.</p>
+    </section>
+
+    <section class="content-section">
+      <p class="section-label">— Features</p>
+      <h2 class="section-title">Key Features</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <h4><i class="fas fa-layer-group"></i> Multi-Level Difficulty</h4>
+          <p>Three difficulty modes (Easy, Medium, Hard) with unique characteristics and progressive challenges.</p>
+        </div>
+        <div class="feature-card">
+          <h4><i class="fas fa-tachometer-alt"></i> Speed Scaling</h4>
+          <p>Ball and paddle speed increase dynamically with score to maintain challenge throughout gameplay.</p>
+        </div>
+        <div class="feature-card">
+          <h4><i class="fas fa-trophy"></i> Score System</h4>
+          <p>Earn +10 points per brick, with -10 penalty on Hard mode for missed balls.</p>
+        </div>
+        <div class="feature-card">
+          <h4><i class="fas fa-keyboard"></i> Responsive Controls</h4>
+          <p>Smooth paddle movement using keyboard arrow keys with precision control.</p>
+        </div>
+        <div class="feature-card">
+          <h4><i class="fas fa-bell"></i> UI Feedback</h4>
+          <p>Real-time score penalty messages and speed statistics display during gameplay.</p>
+        </div>
+        <div class="feature-card">
+          <h4><i class="fas fa-forward"></i> Level Progression</h4>
+          <p>Automatic progression to next level or victory screen upon completion.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <p class="section-label">— Difficulty</p>
+      <h2 class="section-title">Difficulty Levels</h2>
+      <div class="difficulty-cards">
+        <div class="difficulty-card">
+          <h3><i class="fas fa-smile"></i> Easy Level</h3>
+          <ul>
+            <li>Wider paddle for easier control</li>
+            <li>Slower ball speed</li>
+            <li>5 rows of bricks</li>
+            <li>3 lives to complete</li>
+            <li>Perfect for beginners</li>
+          </ul>
+        </div>
+
+        <div class="difficulty-card">
+          <h3><i class="fas fa-meh"></i> Medium Level</h3>
+          <ul>
+            <li>Medium-sized paddle</li>
+            <li>Faster ball speed</li>
+            <li>6 rows of bricks</li>
+            <li>3 lives to complete</li>
+            <li>Balanced challenge</li>
+          </ul>
+        </div>
+
+        <div class="difficulty-card">
+          <h3><i class="fas fa-fire"></i> Hard Level</h3>
+          <ul>
+            <li>Narrow paddle</li>
+            <li>Fastest ball speed</li>
+            <li>7 rows of bricks</li>
+            <li>Score penalty (-10)</li>
+            <li>Ultimate challenge</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <p class="section-label">— Mechanics</p>
+      <h2 class="section-title">Game Mechanics</h2>
+      
+      <h3 class="section-title-small">Physics & Collision Detection</h3>
+      <ul class="content-list">
+        <li><strong>Ball Physics:</strong> Realistic ball bouncing with proper angle calculations and velocity management</li>
+        <li><strong>Wall Collisions:</strong> Accurate detection and reflection off canvas boundaries</li>
+        <li><strong>Paddle Interaction:</strong> Dynamic bounce angles based on hit position for strategic gameplay</li>
+        <li><strong>Brick Collision:</strong> Efficient detection algorithm for brick destruction with immediate visual feedback</li>
+      </ul>
+
+      <h3 class="section-title-small">Adaptive Difficulty System</h3>
+      <div class="highlight-box">
+        <p><strong>Dynamic Speed Scaling:</strong> As players break more bricks and score increases, both ball speed and paddle speed automatically increase. This creates a progressively challenging experience that keeps players engaged and prevents the game from becoming too easy or repetitive.</p>
+      </div>
+
+      <h3 class="section-title-small">Scoring System</h3>
+      <ul class="content-list">
+        <li>+10 points for each brick destroyed</li>
+        <li>-10 points penalty in Hard mode when ball is missed</li>
+        <li>Real-time score display with visual updates</li>
+        <li>Speed statistics showing current ball and paddle velocities</li>
+        <li>High score tracking across gameplay sessions</li>
+      </ul>
+
+      <h3 class="section-title-small">Lives System</h3>
+      <ul class="content-list">
+        <li>Start with 3 lives in all difficulty modes</li>
+        <li>Lose a life when ball falls below paddle</li>
+        <li>Game over when all lives are depleted</li>
+        <li>Visual lives counter display with icons</li>
+      </ul>
+    </section>
+
+    <section class="content-section">
+      <p class="section-label">— Challenges</p>
+      <h2 class="section-title">Technical Challenges & Solutions</h2>
+      
+      <div class="challenge-card">
+        <h4><i class="fas fa-balance-scale"></i> Challenge: Balancing Difficulty</h4>
+        <p><strong>Solution:</strong> Tweaked paddle width and speed multipliers iteratively through extensive playtesting. Created a formula that scales difficulty based on brick count and level progression, ensuring each level feels distinct yet fair.</p>
+      </div>
+
+      <div class="challenge-card">
+        <h4><i class="fas fa-arrows-alt"></i> Challenge: Smooth Ball-Paddle Collisions</h4>
+        <p><strong>Solution:</strong> Added directional bounce logic (dy = -dy) and implemented angle variation based on where the ball hits the paddle. Hit position on paddle edge creates sharper angles, while center hits produce straighter trajectories.</p>
+      </div>
+
+      <div class="challenge-card">
+        <h4><i class="fas fa-bolt"></i> Challenge: Progressive Speed Increase</h4>
+        <p><strong>Solution:</strong> Implemented a dynamic speed multiplier system that increases incrementally with score. Capped maximum speed to prevent unplayable scenarios while maintaining challenge. Speed display keeps players informed of current difficulty.</p>
+      </div>
+
+      <div class="challenge-card">
+        <h4><i class="fas fa-th"></i> Challenge: Brick Collision Accuracy</h4>
+        <p><strong>Solution:</strong> Used rectangular collision detection with proper boundary checking. Implemented immediate direction reversal upon collision to prevent ball getting stuck inside bricks. Added visual feedback for brick destruction.</p>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <p class="section-label">— Implementation</p>
+      <h2 class="section-title">Technical Implementation</h2>
+      
+      <h3 class="section-title-small">Core Technologies</h3>
+      <ul class="content-list">
+        <li><strong>Canvas API:</strong> For rendering game graphics, animations, and real-time updates</li>
+        <li><strong>RequestAnimationFrame:</strong> For smooth 60 FPS gameplay loop and consistent frame timing</li>
+        <li><strong>Event Listeners:</strong> For responsive keyboard input handling and real-time controls</li>
+        <li><strong>CSS Animations:</strong> For UI feedback messages and smooth transitions</li>
+      </ul>
+
+      <h3 class="section-title-small">Game Loop Architecture</h3>
+      <ul class="content-list">
+        <li>Update game state (ball position, paddle movement, collisions, score)</li>
+        <li>Check win/lose conditions and level completion</li>
+        <li>Render all game objects (paddle, ball, bricks, UI elements)</li>
+        <li>Handle user input for paddle movement with smooth transitions</li>
+        <li>Apply physics calculations and dynamic speed adjustments</li>
+      </ul>
+
+      <h3 class="section-title-small">No External Libraries</h3>
+      <div class="highlight-box">
+        <p>This game is built entirely with vanilla JavaScript, HTML5 Canvas, and CSS - no external game engines or libraries. This demonstrates strong understanding of core web technologies, game development fundamentals, and efficient code organization.</p>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <p class="section-label">— Gallery</p>
+      <h2 class="section-title">Game Screens</h2>
+      <div class="image-gallery">
+        <div class="gallery-item">
+          <img src="home.png" alt="Home Page">
+          <div class="gallery-caption">Home Page</div>
+        </div>
+        <div class="gallery-item">
+          <img src="win.png" alt="Victory Screen">
+          <div class="gallery-caption">Victory Screen</div>
+        </div>
+        <div class="gallery-item">
+          <img src="levels.png" alt="Level Selection">
+          <div class="gallery-caption">Level Selection</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <p class="section-label">— Skills Developed</p>
+      <h2 class="section-title">What I Learned</h2>
+      <div class="learning-list">
+        <ul class="content-list">
+          <li><strong>Game Physics:</strong> Implementing realistic ball movement, velocity, and collision detection algorithms</li>
+          <li><strong>Canvas Rendering:</strong> Efficient drawing techniques and animation optimization for smooth performance</li>
+          <li><strong>Game State Management:</strong> Handling multiple game states (menu, playing, paused, game over) seamlessly</li>
+          <li><strong>Performance Optimization:</strong> Maintaining consistent 60 FPS with requestAnimationFrame and efficient rendering</li>
+          <li><strong>Difficulty Balancing:</strong> Creating engaging progression through iterative playtesting and feedback</li>
+          <li><strong>User Input Handling:</strong> Implementing responsive keyboard controls with smooth paddle movement</li>
+          <li><strong>Algorithmic Thinking:</strong> Developing collision detection algorithms and physics calculations from scratch</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <p class="section-label">— Future</p>
+      <h2 class="section-title">Future Enhancements</h2>
+      <ul class="content-list">
+        <li>Power-ups system (multi-ball, paddle expansion, slow-motion, shooting ability)</li>
+        <li>Special brick types (requires multiple hits, explosive bricks, moving bricks)</li>
+        <li>Sound effects and background music with volume controls</li>
+        <li>Local high score leaderboard with persistent storage</li>
+        <li>Mobile touch controls support for wider accessibility</li>
+        <li>Particle effects for brick destruction and visual feedback</li>
+        <li>Boss levels with moving targets and unique mechanics</li>
+        <li>Level editor for creating custom challenges and sharing</li>
+      </ul>
+    </section>
+
+    <div style="text-align: center; margin: 3rem 0;">
+      <a href="index.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i> Back to Portfolio
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <p class="footer-text">© 2024 Md. Sazidul Islam. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.content-section').forEach(section => {
+      section.style.opacity = '0';
+      section.style.transform = 'translateY(30px)';
+      section.style.transition = 'all 0.8s ease';
+      observer.observe(section);
+    });
+  </script>
+</body>
+</html>

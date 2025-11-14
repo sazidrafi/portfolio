@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pac-Man Game - Project Details</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --dark-bg: #2b2d42;
+      --darker-bg: #1a1b2e;
+      --accent: #f5a623;
+      --text-light: #e8e9ed;
+      --text-gray: #9ca3af;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--dark-bg);
+      color: var(--text-light);
+      line-height: 1.8;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Navigation */
+    nav {
+      background: var(--darker-bg);
+      padding: 1.5rem 5%;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.5rem;
+      background: transparent;
+      color: var(--accent);
+      text-decoration: none;
+      border: 2px solid var(--accent);
+      border-radius: 5px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background: var(--accent);
+      color: var(--darker-bg);
+      transform: translateX(-5px);
+    }
+
+    .nav-title {
+      font-size: 1.2rem;
+      color: var(--text-light);
+    }
+
+    /* Hero Section */
+    .project-hero {
+      padding: 5rem 5% 3rem 5%;
+      max-width: 1400px;
+      margin: 0 auto;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-label {
+      color: var(--text-gray);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+    }
+
+    .project-title {
+      font-size: 4rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+    }
+
+    .project-subtitle {
+      font-size: 1.3rem;
+      color: var(--text-gray);
+      max-width: 800px;
+    }
+
+    .tech-tags {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .tech-tag {
+      padding: 0.5rem 1.5rem;
+      background: rgba(245, 166, 35, 0.1);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    /* Content Section */
+    .content-wrapper {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 3rem 5%;
+    }
+
+    .content-section {
+      margin-bottom: 5rem;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .section-label {
+      color: var(--text-gray);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      color: var(--text-light);
+    }
+
+    .section-text {
+      font-size: 1.1rem;
+      color: var(--text-gray);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title-small {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin: 2rem 0 1rem 0;
+      color: var(--text-light);
+    }
+
+    .content-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .content-list li {
+      padding: 0.8rem 0 0.8rem 2rem;
+      color: var(--text-gray);
+      position: relative;
+      font-size: 1.05rem;
+    }
+
+    .content-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .content-list li strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* Features Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .feature-card {
+      background: var(--darker-bg);
+      padding: 2rem;
+      border-radius: 10px;
+      border-left: 4px solid var(--accent);
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateX(10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .feature-card h4 {
+      color: var(--accent);
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .feature-card p {
+      color: var(--text-gray);
+      line-height: 1.6;
+    }
+
+    /* Challenge Cards */
+    .challenge-card {
+      background: var(--darker-bg);
+      padding: 2rem;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+      border-left: 4px solid var(--accent);
+    }
+
+    .challenge-card h4 {
+      color: var(--text-light);
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+
+    .challenge-card p {
+      color: var(--text-gray);
+      line-height: 1.8;
+    }
+
+    .challenge-card strong {
+      color: var(--accent);
+    }
+
+    /* Image Gallery */
+    .image-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 3rem;
+      margin: 3rem 0;
+    }
+
+    .gallery-item {
+      background: var(--darker-bg);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-caption {
+      padding: 1.5rem;
+      text-align: center;
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 1.1rem;
+    }
+
+    /* Learning Section */
+    .learning-list {
+      background: var(--darker-bg);
+      padding: 2rem;
+      border-radius: 10px;
+      border-left: 4px solid var(--accent);
+    }
+
+    .learning-list li {
+      padding: 1rem 0 1rem 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .learning-list li:last-child {
+      border-bottom: none;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--darker-bg);
+      padding: 3rem 5%;
+      text-align: center;
+      margin-top: 5rem;
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .footer-text {
+      color: var(--text-gray);
+      margin-bottom: 2rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .project-title {
+        font-size: 2.5rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .project-hero {
+        padding: 3rem 5% 2rem 5%;
+      }
+
+      .features-grid,
+      .image-gallery {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i> Back to Portfolio
+      </a>
+      <span class="nav-title">Project Details</span>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="project-hero">
+    <p class="hero-label">— Game Development</p>
+    <h1 class="project-title">Classic Pac-Man<br>Clone.</h1>
+    <p class="project-subtitle">A faithful recreation of the iconic arcade game using JavaScript and HTML5 Canvas with advanced ghost AI and authentic gameplay mechanics.</p>
+    <div class="tech-tags">
+      <span class="tech-tag"><i class="fab fa-js"></i> JavaScript</span>
+      <span class="tech-tag"><i class="fab fa-html5"></i> HTML5 Canvas</span>
+      <span class="tech-tag"><i class="fab fa-css3"></i> CSS3</span>
+      <span class="tech-tag"><i class="fas fa-gamepad"></i> Game Development</span>
+    </div>
+  </section>
+
+  <!-- Content Wrapper -->
+  <div class="content-wrapper">
+    
+    <!-- Overview Section -->
+    <section class="content-section">
+      <p class="section-label">— Overview</p>
+      <h2 class="section-title">Project Description</h2>
+      <p class="section-text">A faithful recreation of the iconic Pac-Man arcade game using JavaScript and HTML5 Canvas. Guide Pac-Man through a maze to eat pellets while avoiding ghosts. Features original gameplay mechanics, autonomous ghost behavior, and score tracking.</p>
+      <p class="section-text">This project demonstrates advanced game development skills including AI pathfinding, collision detection, sprite animation, and game state management - all built with vanilla JavaScript without external game engines.</p>
+    </section>
+
+    <!-- Core Gameplay -->
+    <section class="content-section">
+      <p class="section-label">— Gameplay</p>
+      <h2 class="section-title">Core Gameplay Features</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <h4><i class="fas fa-map"></i> Maze Navigation</h4>
+          <p>Navigate through a complex procedurally drawn maze to eat all pellets and complete the level.</p>
+        </div>
+        <div class="feature-card">
+          <h4><i class="fas fa-ghost"></i> Ghost AI</h4>
+          <p>4 unique ghosts (Blinky, Pinky, Inky, Clyde) with different personalities and chase patterns.</p>
+        </div>
+        <div class="feature-card">
+          <h4><i class="fas fa-bolt"></i> Power Pellets</h4>
+          <p>Eat power pellets to temporarily turn the tables and chase the frightened ghosts for bonus points.</p>
+        </div>
+        <div class="feature-card">
+          <h4><i class="fas fa-trophy"></i> Score System</h4>
+          <p>Collect pellets and bonuses for points. Track your high score across gameplay sessions.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Features -->
+    <section class="content-section">
+      <p class="section-label">— Features</p>
+      <h2 class="section-title">Key Technical Features</h2>
+      
+      <h3 class="section-title-small">Maze Generation</h3>
+      <p class="section-text">Procedurally drawn maze with walls, pellets, and power pellets creating an authentic Pac-Man experience with proper collision detection and boundary checking.</p>
+
+      <h3 class="section-title-small">Advanced Ghost AI</h3>
+      <ul class="content-list">
+        <li><strong>Blinky (Red):</strong> Aggressive chaser that directly pursues Pac-Man using shortest path algorithms</li>
+        <li><strong>Pinky (Pink):</strong> Ambusher that tries to position ahead of Pac-Man's current direction</li>
+        <li><strong>Inky (Cyan):</strong> Unpredictable with mixed behavior patterns combining chase and scatter modes</li>
+        <li><strong>Clyde (Orange):</strong> Alternates between scatter and chase modes based on distance to Pac-Man</li>
+      </ul>
+
+      <h3 class="section-title-small">Pac-Man Mechanics</h3>
+      <ul class="content-list">
+        <li>Smooth directional movement with responsive keyboard controls</li>
+        <li>Animated mouth opening and closing during movement for authentic feel</li>
+        <li>Precise collision detection with walls and ghost encounters</li>
+        <li>Wraparound tunnel navigation at screen edges</li>
+      </ul>
+
+      <h3 class="section-title-small">Scoring System</h3>
+      <ul class="content-list">
+        <li><strong>Regular Pellets:</strong> 10 points each for standard maze navigation</li>
+        <li><strong>Power Pellets:</strong> 50 points each for temporary ghost vulnerability</li>
+        <li><strong>Frightened Ghosts:</strong> Bonus points when caught during power-up mode</li>
+        <li><strong>Fruit Bonuses:</strong> Special items for extra score opportunities</li>
+      </ul>
+
+      <h3 class="section-title-small">Win/Lose Conditions</h3>
+      <ul class="content-list">
+        <li><strong>Victory:</strong> Clear all pellets from the maze to advance to the next level with increased difficulty</li>
+        <li><strong>Game Over:</strong> Lose all three lives when caught by ghosts, displaying final score</li>
+      </ul>
+    </section>
+
+    <!-- Technical Challenges -->
+    <section class="content-section">
+      <p class="section-label">— Development</p>
+      <h2 class="section-title">Technical Challenges & Solutions</h2>
+      
+      <div class="challenge-card">
+        <h4><i class="fas fa-route"></i> Challenge: Ghost Pathfinding</h4>
+        <p><strong>Solution:</strong> Implemented a hybrid approach combining A* algorithm for intelligent chasing and random movement for scatter mode. This creates realistic ghost behavior patterns that feel authentic to the original game while being computationally efficient.</p>
+      </div>
+
+      <div class="challenge-card">
+        <h4><i class="fas fa-compress-arrows-alt"></i> Challenge: Collision Detection</h4>
+        <p><strong>Solution:</strong> Used grid-based checks for maze walls with pixel-perfect hitboxes for ghost encounters. This dual-system approach ensures smooth gameplay while maintaining accurate collision detection for both static and dynamic objects.</p>
+      </div>
+
+      <div class="challenge-card">
+        <h4><i class="fas fa-film"></i> Challenge: Sprite Animation</h4>
+        <p><strong>Solution:</strong> Created frame-by-frame animation cycles for Pac-Man and ghosts using requestAnimationFrame. This provides smooth, consistent animations at 60 FPS with proper timing and sprite sheet management.</p>
+      </div>
+
+      <div class="challenge-card">
+        <h4><i class="fas fa-cogs"></i> Challenge: Game State Management</h4>
+        <p><strong>Solution:</strong> Implemented finite state machines (FSM) for managing ghost behaviors (chase, scatter, frightened) and game states (playing, paused, game over). This modular approach makes the codebase maintainable and extensible.</p>
+      </div>
+    </section>
+
+    <!-- Screenshots -->
+    <section class="content-section">
+      <p class="section-label">— Gallery</p>
+      <h2 class="section-title">Game Screens</h2>
+      <div class="image-gallery">
+        <div class="gallery-item">
+          <img src="Screenshot (21).png" alt="Login Page">
+          <div class="gallery-caption">Login Page</div>
+        </div>
+        <div class="gallery-item">
+          <img src="Screenshot (3).png" alt="Game Rules">
+          <div class="gallery-caption">Game Rules</div>
+        </div>
+        <div class="gallery-item">
+          <img src="Screenshot (4).png" alt="Gameplay">
+          <div class="gallery-caption">Gameplay</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Learning Section -->
+    <section class="content-section">
+      <p class="section-label">— Skills Developed</p>
+      <h2 class="section-title">What I Learned</h2>
+      <div class="learning-list">
+        <ul class="content-list">
+          <li>Advanced canvas rendering techniques and optimization for smooth 60 FPS performance</li>
+          <li>Implementing AI pathfinding algorithms (A*) for realistic enemy behavior</li>
+          <li>Game state management using finite state machines for complex logic</li>
+          <li>Collision detection algorithms and physics simulation in 2D games</li>
+          <li>Performance optimization techniques for browser-based games</li>
+          <li>Object-oriented programming patterns and design principles in JavaScript</li>
+          <li>Event-driven architecture for responsive game controls</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Back Button -->
+    <div style="text-align: center; margin: 3rem 0;">
+      <a href="index.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i> Back to Portfolio
+      </a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <p class="footer-text">© 2024 Md. Sazidul Islam. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.content-section').forEach(section => {
+      section.style.opacity = '0';
+      section.style.transform = 'translateY(30px)';
+      section.style.transition = 'all 0.8s ease';
+      observer.observe(section);
+    });
+  </script>
+</body>
+</html>
